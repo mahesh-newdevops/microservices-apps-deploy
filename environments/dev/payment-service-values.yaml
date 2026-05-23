@@ -4,7 +4,7 @@ replicaCount: 1
 
 image:
   repository: ghcr.io/mahesh-newdevops/payment-service
-  tag: latest
+  tag: 6dfb126b6798c890de2cbdd83105dbc794d5271a
 
 env:
   SERVICE_NAME: payment-service
