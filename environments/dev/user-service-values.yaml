@@ -1,0 +1,15 @@
+nameOverride: user-service
+fullnameOverride: user-service
+replicaCount: 1
+
+image:
+  repository: ghcr.io/your-org/user-service
+  tag: latest
+
+env:
+  SERVICE_NAME: user-service
+  PORT: "3000"
+
+service:
+  port: 80
+  targetPort: 3000

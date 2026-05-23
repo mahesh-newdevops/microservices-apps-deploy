@@ -1,0 +1,25 @@
+name: Docker Build
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        service:
+          - user-service
+          - order-service
+          - payment-service
+          - frontend
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build image
+        run: docker build -t ${{ matrix.service }}:${{ github.sha }} services/${{ matrix.service }}
+

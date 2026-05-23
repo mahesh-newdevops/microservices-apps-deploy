@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Microservices App</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #f5f7fb;
+        color: #17202a;
+      }
+
+      main {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 48px 24px;
+      }
+
+      h1 {
+        margin-bottom: 8px;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 16px;
+        margin-top: 32px;
+      }
+
+      .card {
+        border: 1px solid #d8dee9;
+        border-radius: 8px;
+        background: #ffffff;
+        padding: 20px;
+      }
+
+      code {
+        color: #0b6bcb;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Microservices App</h1>
+      <p>Frontend placeholder for the user, order, and payment services.</p>
+      <section class="grid">
+        <article class="card">
+          <h2>User Service</h2>
+          <code>/api/users</code>
+        </article>
+        <article class="card">
+          <h2>Order Service</h2>
+          <code>/api/orders</code>
+        </article>
+        <article class="card">
+          <h2>Payment Service</h2>
+          <code>/api/payments</code>
+        </article>
+      </section>
+    </main>
+  </body>
+</html>
+

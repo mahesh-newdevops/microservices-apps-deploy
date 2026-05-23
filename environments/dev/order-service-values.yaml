@@ -1,0 +1,15 @@
+nameOverride: order-service
+fullnameOverride: order-service
+replicaCount: 1
+
+image:
+  repository: ghcr.io/your-org/order-service
+  tag: latest
+
+env:
+  SERVICE_NAME: order-service
+  PORT: "3000"
+
+service:
+  port: 80
+  targetPort: 3000
