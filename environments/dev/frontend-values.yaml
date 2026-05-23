@@ -19,6 +19,13 @@ health:
 
 ingress:
   enabled: true
-  className: nginx
-  host: microservices.local
+  className: alb
+  annotations:
+    alb.ingress.kubernetes.io/group.name: microservices-dev
+    alb.ingress.kubernetes.io/group.order: "100"
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP":80}]'
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+  host: ""
   path: /
+  pathType: Prefix

@@ -1,15 +1,14 @@
-nameOverride: order-service
-fullnameOverride: order-service
+nameOverride: notification-service
+fullnameOverride: notification-service
 replicaCount: 1
 
 image:
-  repository: ghcr.io/mahesh-newdevops/order-service
+  repository: ghcr.io/mahesh-newdevops/notification-service
   tag: latest
 
 env:
-  SERVICE_NAME: order-service
+  SERVICE_NAME: notification-service
   PORT: "3000"
-  USER_SERVICE_URL: http://user-service
 
 service:
   port: 80
@@ -23,10 +22,10 @@ ingress:
   className: alb
   annotations:
     alb.ingress.kubernetes.io/group.name: microservices-dev
-    alb.ingress.kubernetes.io/group.order: "20"
+    alb.ingress.kubernetes.io/group.order: "40"
     alb.ingress.kubernetes.io/listen-ports: '[{"HTTP":80}]'
     alb.ingress.kubernetes.io/scheme: internet-facing
     alb.ingress.kubernetes.io/target-type: ip
   host: ""
-  path: /api/orders
+  path: /api/notifications
   pathType: Prefix

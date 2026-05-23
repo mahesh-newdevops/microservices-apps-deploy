@@ -28,8 +28,10 @@ resources:
 ingress:
   enabled: false
   className: nginx
-  host: microservices.local
+  annotations: {}
+  host: ""
   path: /
+  pathType: Prefix
 
 health:
   path: /health

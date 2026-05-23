@@ -9,7 +9,25 @@ image:
 env:
   SERVICE_NAME: payment-service
   PORT: "3000"
+  ORDER_SERVICE_URL: http://order-service
+  NOTIFICATION_SERVICE_URL: http://notification-service
 
 service:
   port: 80
   targetPort: 3000
+
+health:
+  path: /health
+
+ingress:
+  enabled: true
+  className: alb
+  annotations:
+    alb.ingress.kubernetes.io/group.name: microservices-dev
+    alb.ingress.kubernetes.io/group.order: "30"
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP":80}]'
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+  host: ""
+  path: /api/payments
+  pathType: Prefix
