@@ -4,7 +4,7 @@ fullnameOverride: ""
 replicaCount: 1
 
 image:
-  repository: ghcr.io/your-org/your-service
+  repository: ghcr.io/mahesh-newdevops/microservice
   tag: latest
   pullPolicy: IfNotPresent
 
@@ -33,4 +33,3 @@ ingress:
 
 health:
   path: /health
-

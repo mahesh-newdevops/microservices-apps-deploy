@@ -3,7 +3,7 @@ fullnameOverride: user-service
 replicaCount: 1
 
 image:
-  repository: ghcr.io/your-org/user-service
+  repository: ghcr.io/mahesh-newdevops/user-service
   tag: latest
 
 env:

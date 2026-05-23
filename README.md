@@ -43,9 +43,9 @@ helm template user-service charts/microservice \
 
 ## Bootstrap with ArgoCD
 
-Update these placeholders before applying:
+Update this placeholder before applying:
 
-- `image.repository` in `environments/dev/*-values.yaml`
+- `ingress.host` in `environments/dev/frontend-values.yaml`
 
 Then apply the root app:
 
@@ -58,3 +58,17 @@ kubectl apply -f argocd/root-app.yaml
 This application repo is referenced by `gitops-platform/argocd/apps/microservices-apps-deploy.yaml`.
 When the `gitops-platform` root app syncs `argocd/apps`, ArgoCD creates the `microservices-apps-deploy`
 application, which then syncs this repo's `argocd/root-app.yaml` and deploys the service applications.
+
+## Image Publishing
+
+On pull requests, `.github/workflows/docker-build.yml` builds changed service images as a validation check.
+On pushes to `main`, it pushes changed service images to GHCR:
+
+```text
+ghcr.io/mahesh-newdevops/user-service:<commit-sha>
+ghcr.io/mahesh-newdevops/order-service:<commit-sha>
+ghcr.io/mahesh-newdevops/payment-service:<commit-sha>
+ghcr.io/mahesh-newdevops/frontend:<commit-sha>
+```
+
+After pushing images, the workflow updates only the changed services' `environments/dev/*-values.yaml` files with the new commit SHA and commits that change back to `main`. ArgoCD detects that Git change and deploys only the applications whose values changed.
