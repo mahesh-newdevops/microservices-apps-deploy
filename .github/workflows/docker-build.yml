@@ -45,7 +45,7 @@ jobs:
           changed_files="$(git diff --name-only "${base_sha}" "${GITHUB_SHA}")"
           services=()
 
-          for service in user-service order-service payment-service frontend; do
+          for service in user-service order-service payment-service notification-service frontend; do
             if grep -qE "^services/${service}/" <<< "${changed_files}"; then
               services+=("${service}")
             fi
