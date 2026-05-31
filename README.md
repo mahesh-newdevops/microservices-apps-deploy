@@ -1,6 +1,6 @@
 # microservices-apps-deploy
 
-GitOps-ready sample repository for deploying a small microservices application with Docker, Helm, Kubernetes, and ArgoCD.
+Sample microservices repository with Docker, Helm charts, and per-environment values. ArgoCD configuration is centralized in `gitops-platform`.
 
 ## Repository layout
 
@@ -14,10 +14,6 @@ charts/
   microservice/       Reusable Helm chart for every service
 environments/
   dev/                Per-service Helm values for dev
-argocd/
-  root-app.yaml       App-of-apps entry point
-  apps/               ArgoCD Applications for each service
-  projects/           ArgoCD AppProject
 ```
 
 ## Build a service image
@@ -41,23 +37,19 @@ helm template user-service charts/microservice \
   -f environments/dev/user-service-values.yaml
 ```
 
-## Bootstrap with ArgoCD
+## Deployment Through ArgoCD
 
 Update this placeholder before applying:
 
 - `ingress.host` in `environments/dev/frontend-values.yaml`
 
-Then apply the root app:
+ArgoCD `Application` and `AppProject` manifests for these services live in:
 
-```bash
-kubectl apply -f argocd/root-app.yaml
+```text
+gitops-platform/argocd/microservices
 ```
 
-## GitOps Platform Reference
-
-This application repo is referenced by `gitops-platform/argocd/apps/microservices-apps-deploy.yaml`.
-When the `gitops-platform` root app syncs `argocd/apps`, ArgoCD creates the `microservices-apps-deploy`
-application, which then syncs this repo's `argocd/root-app.yaml` and deploys the service applications.
+Those Applications point to this repo's `charts/microservice` path and use the values under `environments/dev`.
 
 ## Image Publishing
 
@@ -71,4 +63,4 @@ ghcr.io/mahesh-newdevops/payment-service:<commit-sha>
 ghcr.io/mahesh-newdevops/frontend:<commit-sha>
 ```
 
-After pushing images, the workflow updates only the changed services' `environments/dev/*-values.yaml` files with the new commit SHA and commits that change back to `main`. ArgoCD detects that Git change and deploys only the applications whose values changed.
+After pushing images, the workflow updates only the changed services' `environments/dev/*-values.yaml` files with the new commit SHA and commits that change back to `main`. ArgoCD detects that source/value change through the centralized Applications in `gitops-platform` and deploys only the applications whose values changed.
